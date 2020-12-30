@@ -1,0 +1,20 @@
+---
+version: '2'
+services:
+  mvn:
+    build:
+      context: ./images
+      dockerfile: Dockerfile
+      tty: true
+    volumes:
+      - kopf:/kopf_01
+    depends_on:
+      - my-app
+  my-app:
+    image: tomcat:jre8-alpine
+    volumes:
+      - kopf:/usr/local/tomcat/webapps
+    ports:
+      - "80:8080"
+volumes:
+  kopf:
